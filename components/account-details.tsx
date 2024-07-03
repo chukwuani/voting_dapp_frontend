@@ -48,7 +48,7 @@ const AccountDetails = ({ firstname, lastname, email }: Props) => {
 			try {
 				const { data } = await axios({
 					method: "PATCH",
-					url: `${process.env.NEXT_PUBLIC_BACKEND_API}/user/update-profile`,
+					url: `${process.env.NEXT_PUBLIC_ABSOLUTE_URL}/user/update-profile`,
 					data: {
 						firstname: form.firstname,
 						lastname: form.lastname,

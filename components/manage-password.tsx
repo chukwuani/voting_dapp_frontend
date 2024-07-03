@@ -80,7 +80,7 @@ const ManagePasswordForm = () => {
 			try {
 				const { data } = await axios({
 					method: "PATCH",
-					url: `${process.env.NEXT_PUBLIC_BACKEND_API}/user/change-password`,
+					url: `${process.env.NEXT_PUBLIC_ABSOLUTE_URL}/user/change-password`,
 					data: {
 						oldPassword: form.oldPassword,
 						newPassword: form.newPassword,

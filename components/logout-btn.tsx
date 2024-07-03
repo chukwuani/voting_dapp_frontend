@@ -13,7 +13,7 @@ const LogoutBtn = () => {
 		try {
 			await axios({
 				method: "GET",
-				url: `${process.env.NEXT_PUBLIC_BACKEND_API}/auth/logout`,
+				url: `${process.env.NEXT_PUBLIC_ABSOLUTE_URL}/auth/logout`,
 				withCredentials: true,
 			});
 

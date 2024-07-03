@@ -44,13 +44,15 @@ const LoginForm = () => {
 			try {
 				const { data } = await axios({
 					method: "POST",
-					url: `${process.env.NEXT_PUBLIC_BACKEND_API}/auth/login`,
+					url: `${process.env.NEXT_PUBLIC_ABSOLUTE_URL}/auth/login`,
 					data: {
 						email: form.email,
 						password: form.password,
 					},
 					withCredentials: true,
 				});
+
+				console.log(data);
 
 				toast.success("Welcome Back!", {
 					description: "You've successfully logged in. Let's get started!",

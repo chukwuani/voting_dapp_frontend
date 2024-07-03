@@ -6,8 +6,6 @@ import { useState, useTransition } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 
-import { useInitSession } from "@/store/useSession";
-
 import {
 	InputOTP,
 	InputOTPGroup,
@@ -22,10 +20,6 @@ const OtpForm = ({ email }: { email: string }) => {
 	const [code, setCode] = useState("");
 	const [isLoading, startTransition] = useTransition();
 
-	const {
-		actions: { updateUser },
-	} = useInitSession();
-
 	const handleVerifyEmail = () => {
 		if (!email || !code) {
 			return toast.error("Request Failed", {
@@ -37,7 +31,7 @@ const OtpForm = ({ email }: { email: string }) => {
 			try {
 				const { data } = await axios({
 					method: "post",
-					url: `${process.env.NEXT_PUBLIC_BACKEND_API}/auth/verify-email`,
+					url: `${process.env.NEXT_PUBLIC_ABSOLUTE_URL}/auth/verify-email`,
 					data: {
 						email,
 						otp_code: code,
@@ -45,7 +39,7 @@ const OtpForm = ({ email }: { email: string }) => {
 					withCredentials: true,
 				});
 
-				updateUser(data.user);
+				console.log(data);
 
 				toast.success("Verification success", {
 					description: "Your account has been verified. Welcome",

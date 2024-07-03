@@ -21,7 +21,7 @@ import { toast } from "sonner";
 import { User } from "@/types";
 
 interface FileWithPreview extends File {
-	preview: String;
+	preview: string;
 }
 
 const UploadPhoto = ({ user }: { user: User }) => {
@@ -34,7 +34,7 @@ const UploadPhoto = ({ user }: { user: User }) => {
 			<Avatar className="size-[50px]">
 				<AvatarImage
 					className="object-cover"
-					src={`${preview?.preview}` ?? user.imageUrl ?? "/placeholder.png"}
+					src={preview?.preview ?? user.imageUrl ?? "/placeholder.png"}
 					alt="Avatar"
 				/>
 				<AvatarFallback>
@@ -75,7 +75,7 @@ function DialogUploader({
 		startTransition(async () => {
 			try {
 				const result = await axios.post(
-					`${process.env.NEXT_PUBLIC_BACKEND_API}/user/profile-photo`,
+					`${process.env.NEXT_PUBLIC_ABSOLUTE_URL}/user/profile-photo`,
 					form,
 					{ withCredentials: true }
 				);

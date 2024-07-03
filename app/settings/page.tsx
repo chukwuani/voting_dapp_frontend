@@ -22,7 +22,7 @@ const DashboardPage = async () => {
 		redirect("/login");
 	}
 
-	const { firstname, lastname, email, _id } = user;
+	const { firstname, lastname, email, id } = user;
 
 	return (
 		<section className="max-w-[600px] px-[6vw] py-[6vw] sm:px-0 m-auto flex flex-col gap-3">

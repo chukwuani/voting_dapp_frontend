@@ -5,7 +5,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import GoggleBtn from "@/components/goggle-btn";
 import GithubBtn from "@/components/github-btn";
 import LoginForm from "@/components/login-form";
-import LogoutBtn from "@/components/logout-btn";
 
 export const metadata: Metadata = {
 	title: "Login",

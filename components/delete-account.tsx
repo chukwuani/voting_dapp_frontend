@@ -45,7 +45,7 @@ const DeleteAccountForm = () => {
 			try {
 				await axios({
 					method: "DELETE",
-					url: `${process.env.NEXT_PUBLIC_BACKEND_API}/user/delete-account`,
+					url: `${process.env.NEXT_PUBLIC_ABSOLUTE_URL}/user/delete-account`,
 					withCredentials: true,
 				});
 
