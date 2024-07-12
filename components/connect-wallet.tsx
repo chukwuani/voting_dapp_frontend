@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { ethersProvider } from "@/lib/ethers";
+import { toast } from "sonner";
 
 const ConnectWallet = () => {
 	const [address, setAddress] = useState("");
@@ -18,9 +19,11 @@ const ConnectWallet = () => {
 			if (Number(chainId) !== 9789) {
 				await provider.send("wallet_switchEthereumChain", [{ chainId: "0x263d" }]);
 			}
+		} catch (error) {
+			console.log(error);
 
-			console.log({ address, chainId: Number(chainId) });
-		} catch (error) {}
+			toast.error("Request failed", { description: "Connection to walltet failed. Pls try sgsin" });
+		}
 	};
 
 	return (
