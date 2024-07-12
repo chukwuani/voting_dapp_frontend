@@ -15,7 +15,7 @@ const VoteForm = () => {
 	const [value, setValue] = useState<undefined | number>();
 	const [voteCount, setVoteCount] = useState<any[]>([]);
 
-	const contractAddress = "0x9ABa7159E91290cBFa9C61E4252a93e6A899523B";
+	const contractAddress = "0x0ad6b9dE99d4EBbC5D8F92F455a337146075fed4";
 
 	const [isLoading, startTransition] = useTransition();
 
