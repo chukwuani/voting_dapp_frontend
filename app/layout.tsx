@@ -25,7 +25,10 @@ export default function RootLayout({
 			<body>
 				<Background />
 				{children}
-				<Toaster richColors />
+				<Toaster
+					richColors
+					theme="light"
+				/>
 			</body>
 		</html>
 	);

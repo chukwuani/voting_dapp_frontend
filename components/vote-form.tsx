@@ -5,7 +5,7 @@ import { CardContent, CardFooter } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { ethersProvider } from "@/lib/ethers";
 import { contractABI } from "@/lib/utils";
-import { ethers } from "ethers";
+import { ethers, Interface, isError } from "ethers";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import ResultChart from "./result-chart";
@@ -21,38 +21,60 @@ const VoteForm = () => {
 
 	const handleVote = () => {
 		startTransition(async () => {
-			const { signer, address } = await ethersProvider();
+			try {
+				const { signer, address, provider } = await ethersProvider();
 
-			const votingContract = new ethers.Contract(contractAddress, contractABI, signer);
-			const voterInfo = await votingContract.voters(address);
-			const hasVoted = voterInfo.hasVoted;
+				const votingContract = new ethers.Contract(contractAddress, contractABI, signer);
+				const voterInfo = await votingContract.voters(address);
+				const hasVoted = voterInfo.hasVoted;
+				let receipt;
 
-			if (hasVoted) {
-				toast.error("Already voted", {
-					description: "You can't vote twice with the same account.",
+				if (hasVoted) {
+					toast.error("Already voted", {
+						description: "You can't vote twice with the same account.",
+					});
+					return;
+				} else {
+					const transaction = await votingContract.vote(0);
+					receipt = await provider.waitForTransaction(transaction.hash, 1, 1);
+
+					toast.success("Vote passed", {
+						description:
+							"The community decision has been approved. Action will be taken as per the vote outcome.",
+					});
+
+					console.log({ receipt });
+				}
+			} catch (error: any) {
+				console.log(error);
+
+				const msg = `${error.info.error.data.message}`.split(":")[2];
+
+				toast.error("Request failed!", {
+					description: msg,
 				});
-				return;
-			} else {
-				const transaction = await votingContract.vote(0);
-
-				toast.success("Vote passed", {
-					description:
-						"The community decision has been approved. Action will be taken as per the vote outcome.",
-				});
-
-				console.log({ transaction });
 			}
 		});
 	};
 
 	const handleWinningVote = async () => {
-		const { signer } = await ethersProvider();
+		try {
+			const { signer } = await ethersProvider();
 
-		const votingContract = new ethers.Contract(contractAddress, contractABI, signer);
+			const votingContract = new ethers.Contract(contractAddress, contractABI, signer);
 
-		const result = await votingContract.voteResult();
+			const result = await votingContract.voteResult();
 
-		setVoteCount([Number(result.firstProposal), Number(result.secondProposal)]);
+			setVoteCount([Number(result.firstProposal), Number(result.secondProposal)]);
+		} catch (error: any) {
+			console.log(error);
+
+			const msg = `${error.info.error.data.message}`.split(":")[2];
+
+			toast.error("Request failed!", {
+				description: msg,
+			});
+		}
 	};
 
 	return (

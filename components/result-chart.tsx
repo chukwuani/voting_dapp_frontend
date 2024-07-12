@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Label, Pie, PieChart } from "recharts";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 import {
 	ChartConfig,

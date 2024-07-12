@@ -22,7 +22,7 @@ const ConnectWallet = () => {
 		} catch (error) {
 			console.log(error);
 
-			toast.error("Request failed", { description: "Connection to walltet failed. Pls try sgsin" });
+			toast.error("Request failed", { description: "Connection to walltet failed. Pls try again" });
 		}
 	};
 
